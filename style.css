@@ -21,6 +21,11 @@
     100% { transform: scale(1.05) rotate(0deg); }
 }
 
+@keyframes sparkleMove {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to { background-position: 40px 80px, -60px 120px, 0 0; }
+}
+
 /* הגדרות כלליות */
 body {
     font-family: "Playpen Sans Hebrew", cursive;
@@ -48,27 +53,15 @@ body {
     cursor: url('images/star.png') 20 20, auto;
 }
 
+/* חוק ברזל לריספונסיביות של תמונות */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* שמירה על עכבר הכוכב גם מעל כפתורים, קישורים, תמונות ואלמנטים לחיצים */
 a, button, .quiz-btn, .cta-button, .jibbit-item, .jibbit-item img {
     cursor: url('images/star.png') 20 20, pointer !important;
-}
-    transition: background-color 0.5s ease;
-    color: #333;
-    line-height: 1.6;
-    
-    /* עכבר כוכב וקטורי מובנה ומקודד */
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 210 210'%3E%3Cpath d='M105,5 L118,50 L160,25 L143,70 L190,70 L153,97 L195,135 L148,130 L168,175 L128,150 L125,200 L105,160 L85,200 L82,150 L42,175 L62,130 L15,135 L57,97 L20,70 L67,70 L50,25 L92,50 Z' fill='none' stroke='%23787878' stroke-width='4'/%3E%3C/svg%3E") 22 22, auto;
-}
-
-/* שמירה על עכבר הכוכב גם מעל כפתורים, קישורים, תמונות ואלמנטים לחיצים */
-a, button, .quiz-btn, .cta-button, .jibbit-item, .jibbit-item img {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 210 210'%3E%3Cpath d='M105,5 L118,50 L160,25 L143,70 L190,70 L153,97 L195,135 L148,130 L168,175 L128,150 L125,200 L105,160 L85,200 L82,150 L42,175 L62,130 L15,135 L57,97 L20,70 L67,70 L50,25 L92,50 Z' fill='none' stroke='%23787878' stroke-width='4'/%3E%3C/svg%3E") 22 22, pointer !important;
-}
-
-/* האנימציה שגורמת לנצנצים "לצוף" בעדינות */
-@keyframes sparkleMove {
-    from { background-position: 0 0, 0 0, 0 0; }
-    to { background-position: 40px 80px, -60px 120px, 0 0; }
 }
 
 /* כותרת עליונה */
@@ -77,8 +70,6 @@ header.main-header {
     padding: 60px 20px;
     text-align: center;
     border-bottom: 4px solid #333;
-    background-image: -webkit-image-set(url('images/header-bg@2x.png') 2x, url('images/header-bg.png') 1x);
-    background-image: image-set(url('images/header-bg@2x.png') 2x, url('images/header-bg.png') 1x);
     background-image: url('images/header-bg.png');
     background-size: cover;
     background-position: center;
@@ -91,8 +82,16 @@ header.main-header {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     header.main-header {
         background-image: url('images/header-bg@2x.png');
-        background-size: cover;
     }
+}
+
+/* שכבת ערפול כהה עדינה לרקע ההדר */
+header.main-header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.12);
+    z-index: 0;
 }
 
 .header-content {
@@ -125,15 +124,6 @@ h1.page-title {
     text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
 }
 
-/* שכבת ערפול כהה עדינה לרקע ההדר */
-header.main-header::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.12);
-    z-index: 0;
-}
-
 /* תפריט ניווט */
 nav ul {
     list-style: none;
@@ -154,7 +144,7 @@ nav ul {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: var(--text-dark);
+    color: #111;
     white-space: nowrap;
     text-decoration: none;
 }
@@ -281,8 +271,8 @@ h2 + div {
 }
 
 .jibbit-item img {
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -328,4 +318,69 @@ footer {
     padding: 60px 20px;
     color: #333;
     font-weight: 700;
+}
+
+/* =======================================================
+   בלוק התאמה מיוחד למובייל ומסכים קטנים (Responsive)
+   ======================================================= */
+@media (max-width: 768px) {
+    /* הדר */
+    .header-content {
+        flex-direction: column; /* מסדר את הקרוקודילים והכותרת זה תחת זה */
+        gap: 15px;
+    }
+    
+    h1.page-title {
+        font-size: 2.5rem; /* הקטנת הכותרת הראשית כדי שלא תגלוש */
+    }
+    
+    .crocodile-icon {
+        width: 100px; /* קרוקודילים קטנים יותר שיתאימו למסך */
+    }
+
+    /* תפריט ניווט */
+    nav ul {
+        flex-wrap: wrap; /* מאפשר לקישורים לרדת שורה אם אין מקום */
+    }
+    
+    nav ul li a {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    /* קופסאות הסקשנים */
+    section {
+        margin: 30px 15px; /* מרווח קטן יותר מהצדדים כדי לנצל את רוחב המסך */
+        padding: 25px 20px;
+        border-radius: 20px;
+        box-shadow: 8px 8px 0px #ff4cb2; /* צל מעט קטן יותר לפרופורציה */
+    }
+    
+    section:hover {
+        box-shadow: 12px 12px 0px #31ba22;
+    }
+
+    /* לוח הג'יביטז */
+    .jibbitz-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* ניצול יעיל יותר של המקום */
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .jibbit-item {
+        width: 55px;
+        height: 55px;
+    }
+
+    /* מונה צף */
+    .floating-counter {
+        bottom: 15px;
+        left: 15px;
+        padding: 10px 15px;
+        border-radius: 20px 20px 20px 5px;
+    }
+    
+    #counter-number {
+        font-size: 1.2rem;
+    }
 }
