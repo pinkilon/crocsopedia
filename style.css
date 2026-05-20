@@ -347,14 +347,37 @@ footer {
     }
 
     /* תפריט ניווט במובייל - גלילה אופקית חלקה ללא פס גלילה */
+  @media (max-width: 768px) {
+    
+    /* תפריט ניווט במובייל - גלילה אופקית חלקה ללא ירידת שורה */
     nav ul {
-        justify-content: flex-start; 
-        overflow-x: auto; 
-        white-space: nowrap; 
-        padding: 10px;
-        -webkit-overflow-scrolling: touch; 
-        scrollbar-width: none; /* הסתרת פס גלילה לפיירפוקס */
+        display: flex !important;          /* מבטיח שהאלמנטים יישארו ב-Flexbox */
+        flex-wrap: nowrap !important;      /* חוסם לחלוטין ירידת שורה של כפתורים */
+        justify-content: flex-start;       /* מתחיל את התפריט מימין/שמאל כדי לאפשר גלילה */
+        overflow-x: auto !important;       /* מאפשר גלילה אופקית עם האצבע */
+        white-space: nowrap !important;    /* מונע מהטקסט או מהפריטים לרדת שורה */
+        padding: 12px;
+        -webkit-overflow-scrolling: touch; /* גלילה סופר חלקה וטבעית במכשירי iOS */
+        
+        /* הסתרת פס הגלילה המובנה כדי לשמור על קו עיצובי נקי */
+        scrollbar-width: none;             /* לפיירפוקס */
     }
+    
+    /* הסתרת פס הגלילה בכרום, ספארי ואדג' */
+    nav ul::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* מוודא שפריטי הרשימה לא יתכווצו ויישארו בגודל המקורי שלהם בגלילה */
+    nav ul li {
+        flex: 0 0 auto;
+    }
+    
+    nav ul li a {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+}
     
     nav ul::-webkit-scrollbar {
         display: none; /* הסתרת פס גלילה לכרום, ספארי ואדג' */
