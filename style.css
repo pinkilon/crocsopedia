@@ -124,29 +124,26 @@ h1.page-title {
     text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
 }
 
-/* תפריט ניווט */
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    background: #ffffff;
-    border-bottom: 2px solid #333;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+/* ==========================================
+   הגדרות בסיס לתפריט ניווט (מסכים גדולים)
+   ========================================== */
+nav {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* רקע בהיר עדין לתפריט */
+    border-bottom: 4px solid #333;
 }
 
-.nav-header {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #111;
-    white-space: nowrap;
-    text-decoration: none;
+nav ul {
+    list-style: none; /* מוריד את נקודות הבולט של הרשימה */
+    margin: 0;
+    padding: 0;
+    display: flex; /* הופך את התפריט לאופקי */
+    justify-content: center; /* ממרכז את התפריט במסכים גדולים */
+    align-items: center;
+}
+
+nav ul li {
+    display: inline-block;
 }
 
 nav ul li a {
@@ -161,6 +158,17 @@ nav ul li a {
 nav ul li a:hover {
     color: #ff4cb2;
     transform: scale(1.1) rotate(-2deg);
+}
+
+.nav-header {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #111;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 /* סקשנים - מראה קומיקס Quirky */
@@ -338,14 +346,23 @@ footer {
         width: 100px; /* קרוקודילים קטנים יותר שיתאימו למסך */
     }
 
-    /* תפריט ניווט */
+    /* תפריט ניווט במובייל - גלילה אופקית חלקה ללא פס גלילה */
     nav ul {
-        flex-wrap: wrap; /* מאפשר לקישורים לרדת שורה אם אין מקום */
+        justify-content: flex-start; 
+        overflow-x: auto; 
+        white-space: nowrap; 
+        padding: 10px;
+        -webkit-overflow-scrolling: touch; 
+        scrollbar-width: none; /* הסתרת פס גלילה לפיירפוקס */
+    }
+    
+    nav ul::-webkit-scrollbar {
+        display: none; /* הסתרת פס גלילה לכרום, ספארי ואדג' */
     }
     
     nav ul li a {
-        padding: 10px 12px;
-        font-size: 0.9rem;
+        padding: 10px 15px;
+        font-size: 0.95rem;
     }
 
     /* קופסאות הסקשנים */
